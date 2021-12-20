@@ -23,7 +23,12 @@ float main(int argc, char** argv){ //Initializing my main program, below I will 
 	int l = 0;//Initailizing variables that I will use in my main loop. 
 	/*Below I created a do while loop that runs while the entire calculator is operational, the only way to break this loop is for the user to
 	prompt the program by exit when asked*/
+	FILE *fptr;
+	errno_t fileOpener;
+	fileOpener = fopen_s(&fptr, "answers.txt", "a");
 	do {
+		
+
 		welcomePrompt1.previousAns = ans;
 		int x = 0; //Variables for this do while loop
 		int v = 0;
@@ -158,18 +163,22 @@ float main(int argc, char** argv){ //Initializing my main program, below I will 
 				case 1:
 					printf("%f + %f = ", a, b);
 					add(a, b); // here it will call the add function, which is defined below .
+					fprintf(fptr, "%f + %f = %f\n", a, b, ans);
 					break;
 				case 2:
 					printf("%f - %f = ", a, b);
 					sub(a, b);
+					fprintf(fptr, "%f - %f = %f\n", a, b, ans);
 					break;
 				case 3:
 					printf("%f * %f = ", a, b);
 					mult(a, b);
+					fprintf(fptr, "%f * %f = %f\n", a, b, ans);
 					break;
 				case 4:
 					printf("%f / %f = ", a, b);
-					divi(a, b);					
+					divi(a, b);			
+					fprintf(fptr, "%f / %f = %f\n", a, b, ans);
 					break;
 				case 5:
 					printf("Clearing\n");	
@@ -180,6 +189,7 @@ float main(int argc, char** argv){ //Initializing my main program, below I will 
 					return 0;
 				}
 				
+
 				f++;
 				
 			} while (f == 0);
@@ -187,6 +197,8 @@ float main(int argc, char** argv){ //Initializing my main program, below I will 
 		else
 		{
 			printf("Goodbye!\n");
+			fileOpener = fclose(fptr);
+
 			l++; // exits the program
 		}
 	} while (l == 0);
