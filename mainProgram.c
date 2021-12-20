@@ -13,24 +13,29 @@ Milestone Release:1
 float ans = 0;
 
 float main(int argc, char** argv){ //Initializing my main program, below I will have all of my loops and functions. 
-	printf("Hello, Welcome to my calculator, I hope you enjoy!\n"); //Greeting the user
+	struct welcomePrompt welcomePrompt1;
+	strcpy_s(welcomePrompt1.welcomeMessage, 200, "Hello, Welcome to my calculator, I hope you enjoy!\n");
+	strcpy_s(welcomePrompt1.welcomeInstruct, 200, "Enter (1) to start or any other key to exit.\n");
+	strcpy_s(welcomePrompt1.welcomeFormula, 200, "The Formula is as follows:\na (+)(-)(*)(/) b = c\n");
+	strcpy_s(welcomePrompt1.welcomeRules, 200, "This calculator supports a maximum of 9 numbers per variable. It also supports decimals!\nThis calculator also has a memory function\n");
+
+	printf("%s", welcomePrompt1.welcomeMessage); //Greeting the user using a structure
 	int l = 0;//Initailizing variables that I will use in my main loop. 
 	/*Below I created a do while loop that runs while the entire calculator is operational, the only way to break this loop is for the user to
 	prompt the program by exit when asked*/
 	do {
+		welcomePrompt1.previousAns = ans;
 		int x = 0; //Variables for this do while loop
 		int v = 0;
-		printf("Enter (1) to start or any other key to exit.\n");// prompting the user to enter "1" to start the program, or any key to exit
+		printf("%s", welcomePrompt1.welcomeInstruct);// prompting the user to enter "1" to start the program, or any key to exit
 		scanf_s("%d", &x); //scans the users input, and assigns it to variable "x"
 		printf("-------------------\n"); 
 
 		if (x == 1) //if user input == '1', program starts
 		{
-			printf("The stored memory answer is %f\n", ans);
-			printf("The Formula is as follows:\n");
-			printf("a (+)(-)(*)(/) b = c\n");
-			printf("This calculator supports a maximum of 9 numbers per variable.\nThis calculator now supports decimals!\n");
-			printf("This calculator also now supports a memory function!!\n");
+			printf("The stored answer is %f\n", welcomePrompt1.previousAns);
+			printf("%s", welcomePrompt1.welcomeFormula);
+			printf("%s", welcomePrompt1.welcomeRules);
 			int v = 0; 
 			do //second do while loop, this is the loop for prompting the user to enter their numbers, if the input does not equal a number, the program will loop.
 			{
